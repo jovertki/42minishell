@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_crealloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/07 22:02:53 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/09 20:28:00 by jovertki         ###   ########.fr       */
+/*   Created: 2021/07/09 22:28:56 by jovertki          #+#    #+#             */
+/*   Updated: 2021/07/09 23:01:02 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
+#include <stdio.h>
 
-void	env(char **envp)
+//NOT PROTECTED AGAINST ANYTHING
+void	*ft_crealloc(void **ptr, size_t old_size, size_t size)
 {
-	int i = 0;
-	while (envp[i])
+	char	*old;
+	char	*new;
+	size_t	i;
+
+	old = *(char **)ptr;
+	printf("old = %s\n", old);
+	i = 0;
+	new = ft_calloc(size, 1);
+	while (i < old_size)
 	{
-		printf("%s\n", envp[i]);
+		new[i] = old[i];
 		i++;
 	}
-}
-
-char	**get_env(const char **envp)
-{
-	char **out;
-	int i;
-
-	i = 0;
-	while(envp[i])
-		i++;
-	out = ft_calloc(i, sizeof(char *));
-	i = 0;
-	while(envp[i])
-	{
-		out[i] = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
-		ft_strcpy(out[i], envp[i]);
-		i++;
-
-	}
-	out[i] = NULL;
-	return (out);
+	free(*ptr);
+	return (new);
 }

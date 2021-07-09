@@ -6,13 +6,13 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:09:55 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/08 16:24:31 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/09 20:42:04 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo(char **str)//add pipes via whatever means
+void	echo(char **str)
 {
 	int i;
 
@@ -27,6 +27,6 @@ void	echo(char **str)//add pipes via whatever means
 			ft_putchar_fd(' ', 1);
 		i++;
 	}
-	if (!(ft_strncmp(str[1], "-n\0", 3)))
+	if (ft_strncmp(str[1], "-n\0", 3))
 		ft_putchar_fd('\n', 1);
 }

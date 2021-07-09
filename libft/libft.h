@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 20:55:32 by jovertki          #+#    #+#             */
-/*   Updated: 2021/05/03 18:24:56 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/09 22:57:52 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,5 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 int					ft_getsign(int num);
 void				ft_selectsort(int *arr, unsigned int len, char mod);
 void				ft_free(void **pointer);
+void				*ft_crealloc(void **ptr, size_t old_size, size_t size);
 #endif

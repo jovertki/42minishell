@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 20:26:58 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/08 20:57:38 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/09 22:09:02 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ typedef struct s_all
 
 
 void	pwd(char **envp);
-void	env(t_all *all);
+void	env(char **envp);
 char	**get_env(const char **envp);
 void	echo(char **str);
+void	execute(t_commandtable *ct, char **envp);
+void	cd(char **argv, char **envp);
 #endif
