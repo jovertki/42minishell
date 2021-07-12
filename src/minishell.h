@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 20:26:58 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/09 22:09:02 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:53:18 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
+# include <sys/stat.h>
 
 typedef struct s_command
 {

@@ -15,7 +15,7 @@ void	get_ct(t_commandtable *ct)
 	ct->commands = ft_calloc(sizeof(t_command), 2);
 	ct->commands[0].argv = ft_calloc(sizeof(char*), 3);
 	ct->commands[0].argv[0] = ft_strdup("cd\0");
-	ct->commands[0].argv[1] = ft_strdup("../mini///folder/.//.");
+	ct->commands[0].argv[1] = ft_strdup("Makefil");
 	ct->commands[0].argc = 2;
 
 
