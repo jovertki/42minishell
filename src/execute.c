@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 20:42:11 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/09 22:11:06 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/13 21:14:52 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,26 @@ int	is_not_builtin(char *str)
 	return (out);
 }
 
-int execbuiltin(char *name, char **argv, char **envp)
+int execbuiltin(char *name, char **argv, int argc, char ***envp)
 {
 	if (ft_strncmp("echo\0", name, 5) == 0)
 		echo(argv);
 	else if (ft_strncmp("cd\0", name, 3) == 0)
-		cd(argv, envp);
+		cd(argv, argc, *envp);
 	else if (ft_strncmp("pwd\0", name, 4) == 0)
-		pwd(envp);
+		pwd(*envp);
 	else if (ft_strncmp("export\0", name, 7) == 0)
-	{}
+		ft_export(argc, argv, envp);
 	else if (ft_strncmp("unset\0", name, 6) == 0)
 	{}
 	else if (ft_strncmp("env\0", name, 4) == 0)
-		env(envp);
+		env(*envp);
 	else if (ft_strncmp("exit\0", name, 5) == 0)
 	{}
 	return (0);
 }
 
-void execute(t_commandtable *ct, char **envp)
+void execute(t_commandtable *ct, char ***envp)
 {
 	// save in/out
 	int tmpin = dup(0);
@@ -98,25 +98,18 @@ void execute(t_commandtable *ct, char **envp)
 		close(fdout);
 
 		// Create child process
-		ret=fork();
-		if(ret==0) 
+		if (is_not_builtin(ct->commands[i].argv[0]))
 		{
-
-
-			if (is_not_builtin(ct->commands[i].argv[0]))
-				execve(ct->commands[i].argv[0], ct->commands[i].argv, envp);
-			else
+			ret=fork();
+			if(ret==0) 
 			{
-				
-				execbuiltin(ct->commands[i].argv[0], ct->commands[i].argv, envp);
+				execve(ct->commands[i].argv[0], ct->commands[i].argv, *envp);
+				// pwd(envp);
+				exit(1);
 			}
-
-
-
-			
-			// pwd(envp);
-			exit(1);
 		}
+		else
+			execbuiltin(ct->commands[i].argv[0], ct->commands[i].argv, ct->commands[i].argc, envp);
 	} //  for
 
 	//restore in/out defaults

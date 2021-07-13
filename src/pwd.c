@@ -6,25 +6,19 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 20:27:58 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/08 20:58:15 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/13 19:45:50 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd(char **envp)
+void	pwd()
 {
-	int i;
-	i = 0;
-
-	while (envp[i])
+	char str[PATH_MAX];
+	if (getcwd(str, PATH_MAX) == NULL)
 	{
-		if ((ft_strncmp(envp[i], "PWD=", 4)) == 0)
-			break ;
-		i++;
+		perror("pwd");
+		return ;
 	}
-	char *temp;
-	temp = ft_substr(envp[i], 4, ft_strlen(envp[i]) - 4);
-	printf("%s\n", temp);
-	free(temp);
-}
+	ft_putendl_fd(str, 1);
+}	

@@ -11,12 +11,36 @@ void	get_ct(t_commandtable *ct)
 	// ct->commands[0].argv[2] = ft_strdup("line 2");
 	// ct->commands[0].argc = 3;
 
-	ct->num_of_commands = 1;
-	ct->commands = ft_calloc(sizeof(t_command), 2);
-	ct->commands[0].argv = ft_calloc(sizeof(char*), 3);
-	ct->commands[0].argv[0] = ft_strdup("cd\0");
-	ct->commands[0].argv[1] = ft_strdup("Makefil");
+
+
+
+
+
+	ct->num_of_commands = 2;
+	ct->commands = ft_calloc(sizeof(t_command), 4);
+
+	ct->commands[0].argv = ft_calloc(sizeof(char*), 4);
+	ct->commands[0].argv[0] = ft_strdup("export\0");
+	ct->commands[0].argv[1] = ft_strdup("var=123\0");
 	ct->commands[0].argc = 2;
+
+	ct->commands[1].argv = ft_calloc(sizeof(char*), 4);
+	ct->commands[1].argv[0] = ft_strdup("env\0");
+	ct->commands[1].argc = 1;
+
+	//TEST INPUT 2
+	// ct->num_of_commands = 2;
+	// ct->commands = ft_calloc(sizeof(t_command), 3);
+
+	// ct->commands[0].argv = ft_calloc(sizeof(char*), 3);
+	// ct->commands[0].argv[0] = ft_strdup("cd\0");
+	// ct->commands[0].argv[1] = ft_strdup("\0");
+	// ct->commands[0].argc = 2;
+
+	// ct->commands[1].argv = ft_calloc(sizeof(char*), 3);
+	// ct->commands[1].argv[0] = ft_strdup("pwd\0");
+	// ct->commands[1].argc = 1;
+	
 
 
 
@@ -41,6 +65,7 @@ void	get_ct(t_commandtable *ct)
 
 	
 }
+
 int	main(int argc, char **argv, const char **envp)
 {
 	char	*str;
@@ -58,9 +83,18 @@ int	main(int argc, char **argv, const char **envp)
 
 	get_ct(&ct);
 
-	execute(&ct, all.env);
+	execute(&ct, &all.env);
+	printf("main pid = %d\n", getpid());
 
 
+
+
+	int i = 0;
+	// while (envp[i])
+	// {
+	// 	printf("%s\n", envp[i]);
+	// 	i++;
+	// }
 	// while (1)
 	// {
 	// 	str = readline("minishell$ ");
