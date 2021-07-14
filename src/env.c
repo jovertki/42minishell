@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:02:53 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/09 20:28:00 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/14 18:12:30 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	env(char **envp)
 	int i = 0;
 	while (envp[i])
 	{
-		printf("%s\n", envp[i]);
+		if (envp[i][0] != '\0')
+			printf("%s\n", envp[i]);
 		i++;
 	}
 }
