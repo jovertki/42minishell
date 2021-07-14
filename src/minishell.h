@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 20:26:58 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/13 21:14:44 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/14 19:52:56 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ void	echo(char **str);
 void	execute(t_commandtable *ct, char ***envp);
 void	cd(char **argv, int argc, char **envp);
 void	ft_export(int argc, char **argv, char ***envp);
+char	*find_env(char **envp, char *str, int mode);
 #endif
