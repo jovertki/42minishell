@@ -21,7 +21,7 @@ void	get_ct(t_commandtable *ct)
 
 	ct->commands[0].argv = ft_calloc(sizeof(char*), 4);
 	ct->commands[0].argv[0] = ft_strdup("export\0");
-	ct->commands[0].argv[1] = ft_strdup("VAR=\0");
+	ct->commands[0].argv[1] = ft_strdup("VAR\0");
 	ct->commands[0].argc = 2;
 
 	ct->commands[1].argv = ft_calloc(sizeof(char*), 4);
@@ -30,7 +30,7 @@ void	get_ct(t_commandtable *ct)
 
 	ct->commands[2].argv = ft_calloc(sizeof(char*), 4);
 	ct->commands[2].argv[0] = ft_strdup("export\0");
-	ct->commands[2].argv[1] = ft_strdup("VAR=\0");
+	ct->commands[2].argv[1] = ft_strdup("VAR=123\0");
 	ct->commands[2].argc = 2;
 
 	ct->commands[3].argv = ft_calloc(sizeof(char*), 4);
@@ -99,7 +99,7 @@ int	main(int argc, char **argv, const char **envp)
 
 
 
-	int i = 0;
+	// int i = 0;
 	// while (envp[i])
 	// {
 	// 	printf("%s\n", envp[i]);
