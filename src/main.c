@@ -16,17 +16,27 @@ void	get_ct(t_commandtable *ct)
 
 
 
-	ct->num_of_commands = 2;
-	ct->commands = ft_calloc(sizeof(t_command), 4);
+	ct->num_of_commands = 4;
+	ct->commands = ft_calloc(sizeof(t_command), 5);
 
 	ct->commands[0].argv = ft_calloc(sizeof(char*), 4);
 	ct->commands[0].argv[0] = ft_strdup("export\0");
-	ct->commands[0].argv[1] = ft_strdup("var=123\0");
+	ct->commands[0].argv[1] = ft_strdup("VAR=\0");
 	ct->commands[0].argc = 2;
 
 	ct->commands[1].argv = ft_calloc(sizeof(char*), 4);
-	ct->commands[1].argv[0] = ft_strdup("env\0");
+	ct->commands[1].argv[0] = ft_strdup("export\0");
 	ct->commands[1].argc = 1;
+
+	ct->commands[2].argv = ft_calloc(sizeof(char*), 4);
+	ct->commands[2].argv[0] = ft_strdup("export\0");
+	ct->commands[2].argv[1] = ft_strdup("VAR=\0");
+	ct->commands[2].argc = 2;
+
+	ct->commands[3].argv = ft_calloc(sizeof(char*), 4);
+	ct->commands[3].argv[0] = ft_strdup("export\0");
+	ct->commands[3].argc = 1;
+
 
 	//TEST INPUT 2
 	// ct->num_of_commands = 2;
