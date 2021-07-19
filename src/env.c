@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:02:53 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/15 20:27:43 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/19 22:06:22 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**get_env(const char **envp)
 	i = 0;
 	while(envp[i])
 		i++;
-	out = ft_calloc(i + 1, sizeof(char *));
+	out = ft_calloc(i + 2, sizeof(char *));
 	i = 0;
 	while(envp[i])
 	{
