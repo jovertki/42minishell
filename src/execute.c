@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 20:42:11 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/19 20:49:35 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/19 21:52:48 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void execute(t_commandtable *ct, char ***envp)
 		// Use default input
 		fdin=dup(tmpin);
 	}
-	int ret;
+	int ret = 0;
 	int fdout;
 	for (int i = 0; i < ct->num_of_commands; i++) 
 	{
@@ -117,6 +117,6 @@ void execute(t_commandtable *ct, char ***envp)
 	dup2(tmpout,1);
 	close(tmpin);
 	close(tmpout);
-
-	waitpid(ret, NULL, 0);
+	if(ret != 0)
+		waitpid(ret, NULL, 0);
 } // execute
