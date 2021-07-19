@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 20:42:11 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/13 21:14:52 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/19 20:49:35 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int execbuiltin(char *name, char **argv, int argc, char ***envp)
 	if (ft_strncmp("echo\0", name, 5) == 0)
 		echo(argv);
 	else if (ft_strncmp("cd\0", name, 3) == 0)
-		cd(argv, argc, *envp);
+		cd(argv, argc, envp);
 	else if (ft_strncmp("pwd\0", name, 4) == 0)
 		pwd(*envp);
 	else if (ft_strncmp("export\0", name, 7) == 0)
 		ft_export(argc, argv, envp);
 	else if (ft_strncmp("unset\0", name, 6) == 0)
-	{}
+		ft_unset(argc, argv, envp);
 	else if (ft_strncmp("env\0", name, 4) == 0)
 		env(*envp);
 	else if (ft_strncmp("exit\0", name, 5) == 0)

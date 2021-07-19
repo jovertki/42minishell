@@ -6,28 +6,59 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 20:30:52 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/14 20:34:57 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/19 20:26:38 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-char **make_temp(char *s1, char *s2)
+char **make_command(char *s1, char *s2)
 {
 	char **out;
 
-	out = malloc(sizeof(char *) * 2);
+	out = malloc(sizeof(char *) * 3);
 	out[0] = ft_strdup(s1);
 	out[1] = ft_strdup(s2);
+	out[2] = NULL;
 	return(out);
 }
 
-void	cd(char **argv, int argc, char **envp)
+void	set_pwds(char ***envp)
+{
+	char **temp;
+	char *strtemp; 
+	char buf[PATH_MAX];
+
+	strtemp = ft_strjoin("OLDPWD", find_env(*envp, "PWD=", 0));
+	temp = make_command("export", strtemp);
+	ft_export(2, temp, envp);
+	free(strtemp);
+	int i;
+	i = 0;
+	while(temp[i])
+	{
+		free(temp[i]);
+		i++;
+	}
+	free(temp);
+	strtemp = ft_strjoin("PWD=", getcwd(buf, PATH_MAX));
+	temp = make_command("export", strtemp);
+	ft_export(2, temp, envp);
+	free(strtemp);
+	i = 0;
+	while(temp[i])
+	{
+		free(temp[i]);
+		i++;
+	}
+	free(temp);
+}
+
+void	cd(char **argv, int argc, char ***envp)
 {
 	int ret;
 	char *str;
-	char *strtemp;
 	char **temp;
 
 	ret = 123;
@@ -38,7 +69,7 @@ void	cd(char **argv, int argc, char **envp)
 	}
 	if (argv[1] == NULL || argv[1][0] == '\0')
 	{
-		str = find_env(envp, "HOME=", 0);
+		str = find_env(*envp, "HOME=", 0);
 	}
 	else if (argv[1] != NULL && argv[1][0] == '~')
 	{
@@ -46,7 +77,6 @@ void	cd(char **argv, int argc, char **envp)
 	}
 	else
 	{
-		printf("route 1\n");
 		str = argv[1];
 	}
 	if (chdir(str) == -1)
@@ -54,16 +84,16 @@ void	cd(char **argv, int argc, char **envp)
 		perror("cd");
 		return ;
 	}
+	
 	//make srt absolute path
 
-	printf("123\n");
-	strtemp = find_env(envp, "OLDPWD\0", 0);//<-----------------------------SOME SHIT Segmentation fault: 11 IN BASH HERE
-	// temp = make_temp("OLDPWD", find_env(envp, "OLDPWD", 0));
-	// ft_export(2, temp, &envp);
-	// //free whole temp
-	// temp = make_temp("PWD", str);
-	// ft_export(2, temp, &envp);
-	// //free whole temp
+	set_pwds(envp);
+
+//	strtemp = find_env(envp, "OLDPWD\0", 0);//<-----------------------------SOME SHIT Segmentation fault: 11 IN BASH HERE
+	
+
+
+
 }
 
 

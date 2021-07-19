@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 19:54:16 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/14 20:31:06 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/19 19:49:03 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	print_line(char *minp, int len)
 	ft_putendl_fd(str, 1);
 }
 
-void	print_sorted_env(char **envp, int envplen)
+void	print_sorted_env(char **envp)
 {
 	char *maxp;
 	char *minp;
@@ -79,7 +79,7 @@ void	print_sorted_env(char **envp, int envplen)
 
 
 	i = 0;
-	while (i < envplen)
+	while (envp[i])
 	{
 		if (maxp == NULL || (ft_strncmp(maxp, envp[i], max(ft_strlen(envp[i]), ft_strlen(maxp))) < 0))
 			maxp = envp[i];
@@ -87,10 +87,10 @@ void	print_sorted_env(char **envp, int envplen)
 	}
 	minp = maxp;
 	i = 0;
-	while(i < envplen)
+	while(envp[i])
 	{
 		j = 0;
-		while (j < envplen)
+		while (envp[j])
 		{
 			if ((minp == NULL) || (ft_strncmp(minp, envp[j], max(ft_strlen(envp[j]), ft_strlen(minp))) > 0 && \
 				(prev_min == NULL || \
@@ -115,7 +115,6 @@ char *find_var_name(char *str)
 		i++;
 	char *out;
 	out = ft_substr(str, 0, i);
-	printf("out = '%s', out[4] = %d\n", out, out[4]);
 	return (out);
 }
 
@@ -128,19 +127,22 @@ void	ft_export(int argc, char **argv, char ***envp)
 	while ((*envp)[i])
 		i++;
 	envplen = i;
+	i = 0;
 	if (argc == 1)
-		print_sorted_env(*envp, envplen);
+		print_sorted_env(*envp);
 	else
 	{
 		//check var name for validity
-	
 		name = find_var_name(argv[1]);
-		i = 0;
+//		printf("var name is '%s'\n", name);
 		while ((*envp)[i])
 		{
 //			printf("envp = '%s', name = '%s', cmp = %d\n", (*envp)[i], name, ft_strncmp((*envp)[i], name, ft_strlen(name)));
-			if (ft_strncmp((*envp)[i], name, ft_strlen(name)) == 0 || (ft_strncmp((*envp)[i], name, ft_strlen(name) - 1) == 0 && (*envp)[i][ft_strlen(name)] == '='))
+			if (ft_strncmp((*envp)[i], name, ft_strlen(name)) == 0 || \
+				(ft_strncmp((*envp)[i], name, ft_strlen(name) - 1) == 0 && \
+				(*envp)[i][ft_strlen(name)] == '='))
 			{
+//				printf("break\n");
 				break ;
 			}
 			i++;
@@ -153,12 +155,12 @@ void	ft_export(int argc, char **argv, char ***envp)
 		} else
 		{
 			//add new
-			ft_crealloc(*(void**)envp, (i * sizeof(char *)), ((i + 1)* sizeof(char *)));
+			ft_crealloc(*(void**)envp, (envplen * sizeof(char *)), ((envplen + 10)* sizeof(char *)));
 			(*envp)[i] = ft_strdup(argv[1]);
 			(*envp)[i + 1] = NULL;
 		}
+		free(name);
 	}
-
 //	printf("envp[%d] = '%s'\n", i, (*envp)[i]);
 	// i = 0;
 	// while (envp[i])

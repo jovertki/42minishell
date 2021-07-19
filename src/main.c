@@ -14,22 +14,29 @@ void	get_ct(t_commandtable *ct)
 
 
 
-	ct->num_of_commands = 3;
+
+
+
+
+
+	//test input 4
+
+	ct->num_of_commands = 2;
 	ct->commands = ft_calloc(sizeof(t_command), 5);
 
 	ct->commands[0].argv = ft_calloc(sizeof(char*), 4);
-	ct->commands[0].argv[0] = ft_strdup("pwd\0");
-	// ct->commands[0].argv[1] = ft_strdup("VAR\0");
-	ct->commands[0].argc = 1;
+	ct->commands[0].argv[0] = ft_strdup("unset\0");
+	ct->commands[0].argv[1] = ft_strdup("HOME\0");
+	ct->commands[0].argc = 2;
 
 	ct->commands[1].argv = ft_calloc(sizeof(char*), 4);
-	ct->commands[1].argv[0] = ft_strdup("cd\0");
-	ct->commands[1].argv[1] = ft_strdup("/Users/jovertki/school21projects\0");
-	ct->commands[1].argc = 2;
+	ct->commands[1].argv[0] = ft_strdup("export\0");
+	// ct->commands[1].argv[1] = ft_strdup("HOME");
+	ct->commands[1].argc = 1;
 
-	ct->commands[2].argv = ft_calloc(sizeof(char*), 4);
-	ct->commands[2].argv[0] = ft_strdup("export\0");
-	ct->commands[2].argc = 1;
+	// ct->commands[2].argv = ft_calloc(sizeof(char*), 4);
+	// ct->commands[2].argv[0] = ft_strdup("export\0");
+	// ct->commands[2].argc = 1;
 
 
 
@@ -94,12 +101,79 @@ void	get_ct(t_commandtable *ct)
 	
 }
 
+char	**prune_env(char **envp)
+{
+	int i;
+	int j;
+	char **new_envp;
+	
+	i = 0;
+	while ((envp)[i])
+		i++;
+	new_envp = ft_calloc(sizeof(char *), i + 1);
+	i = 0;
+	j = 0;
+	while (envp[i])
+	{
+		if (envp[i][0] != '\0')
+		{
+			new_envp[j] = ft_strdup(envp[i]);
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (envp[i])
+	{
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
+	new_envp[j] = NULL;
+	return(new_envp);
+}
+
+
+void	free_env(char **envp)
+{
+	int i;
+
+	i = 0;
+	while(envp[i])
+	{
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
+}
+
+void	free_ct(t_commandtable *ct)
+{
+	int i;
+	i = 0;
+	int j;
+	while(i < ct->num_of_commands)
+	{
+		j = 0;
+		while(ct->commands[i].argv[j])
+		{
+			free(ct->commands[i].argv[j]);
+			j++;
+		}
+		free(ct->commands[i].argv);
+		i++;
+	}
+	free(ct->commands);
+}
+
 int	main(int argc, char **argv, const char **envp)
 {
 	char	*str;
 	t_all	all;
 	ft_bzero(&all, sizeof(t_all));
 	all.env = get_env(envp);
+//	all.env = prune_env(all.env);
+
 
 //parser with commandtable on out
 //command table is
@@ -113,6 +187,11 @@ int	main(int argc, char **argv, const char **envp)
 
 	execute(&ct, &all.env);
 	printf("main pid = %d\n", getpid());
+
+
+	free_ct(&ct);
+	free_env(all.env);
+
 
 
 
@@ -137,6 +216,6 @@ int	main(int argc, char **argv, const char **envp)
 	// 	// 	echo(&all);
 	// 	free(str);
 	// }
-	usleep(100000);
+	usleep(1000000);
 	printf("exit\n");
 }

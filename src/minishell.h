@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 20:26:58 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/14 19:52:56 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/19 20:47:28 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_command
 	int output;
 	int error;
 	char **argv;// NULL terminated
-	int argc;// not nesessary
+	int argc;
 }t_command;
 
 typedef struct s_commandtable
@@ -53,7 +53,9 @@ void	env(char **envp);
 char	**get_env(const char **envp);
 void	echo(char **str);
 void	execute(t_commandtable *ct, char ***envp);
-void	cd(char **argv, int argc, char **envp);
+void	cd(char **argv, int argc, char ***envp);
 void	ft_export(int argc, char **argv, char ***envp);
 char	*find_env(char **envp, char *str, int mode);
+char	**make_command(char *s1, char *s2);
+void	ft_unset(int argc, char **argv, char ***envp);
 #endif

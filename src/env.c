@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:02:53 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/14 18:12:30 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/15 20:27:43 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	env(char **envp)
 	int i = 0;
 	while (envp[i])
 	{
-		if (envp[i][0] != '\0')
-			printf("%s\n", envp[i]);
+		printf("%s\n", envp[i]);
 		i++;
 	}
 }
@@ -31,14 +30,12 @@ char	**get_env(const char **envp)
 	i = 0;
 	while(envp[i])
 		i++;
-	out = ft_calloc(i, sizeof(char *));
+	out = ft_calloc(i + 1, sizeof(char *));
 	i = 0;
 	while(envp[i])
 	{
-		out[i] = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
-		ft_strcpy(out[i], envp[i]);
+		out[i] = ft_strdup(envp[i]);
 		i++;
-
 	}
 	out[i] = NULL;
 	return (out);
