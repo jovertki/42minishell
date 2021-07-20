@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 20:26:58 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/19 20:47:28 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/20 18:16:11 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ void	ft_export(int argc, char **argv, char ***envp);
 char	*find_env(char **envp, char *str, int mode);
 char	**make_command(char *s1, char *s2);
 void	ft_unset(int argc, char **argv, char ***envp);
+void	search_right_bin(char **argv, char **envp);
 #endif

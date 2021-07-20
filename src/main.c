@@ -21,22 +21,22 @@ void	get_ct(t_commandtable *ct)
 
 	//test input 4
 
-	ct->num_of_commands = 3;
+	ct->num_of_commands = 2;
 	ct->commands = ft_calloc(sizeof(t_command), 5);
 
 	ct->commands[0].argv = ft_calloc(sizeof(char*), 4);
-	ct->commands[0].argv[0] = ft_strdup("export\0");
+	ct->commands[0].argv[0] = ft_strdup("unset\0");
 	ct->commands[0].argv[1] = ft_strdup("VAR\0");
-	ct->commands[0].argc = 2;
+	ct->commands[0].argc = 1;
 
 	ct->commands[1].argv = ft_calloc(sizeof(char*), 4);
-	ct->commands[1].argv[0] = ft_strdup("unset\0");
-	ct->commands[1].argv[1] = ft_strdup("VAR");
-	ct->commands[1].argc = 2;
+	ct->commands[1].argv[0] = ft_strdup("/bin/lss\0");
+	// ct->commands[1].argv[1] = ft_strdup("VARRR");
+	ct->commands[1].argc = 1;
 
-	ct->commands[2].argv = ft_calloc(sizeof(char*), 4);
-	ct->commands[2].argv[0] = ft_strdup("export\0");
-	ct->commands[2].argc = 1;
+	// ct->commands[2].argv = ft_calloc(sizeof(char*), 4);
+	// ct->commands[2].argv[0] = ft_strdup("export\0");
+	// ct->commands[2].argc = 1;
 
 
 

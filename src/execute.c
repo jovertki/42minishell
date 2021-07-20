@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 20:42:11 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/19 21:52:48 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/20 19:55:23 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,13 @@ void execute(t_commandtable *ct, char ***envp)
 			ret=fork();
 			if(ret==0) 
 			{
-				execve(ct->commands[i].argv[0], ct->commands[i].argv, *envp);
+
+
+				search_right_bin(ct->commands[i].argv, *envp);
+				// if (execve(ct->commands[i].argv[0], ct->commands[i].argv, *envp) == -1)
+				// {
+				// 	ft_putendl_fd(strerror(errno), 2);
+				// }
 				// pwd(envp);
 				exit(1);
 			}
