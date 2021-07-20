@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 20:27:58 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/13 19:45:50 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/20 21:18:13 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 void	pwd()
 {
 	char str[PATH_MAX];
+	char *temp;
 	if (getcwd(str, PATH_MAX) == NULL)
 	{
-		perror("pwd");
+		temp = ft_strjoin("pwd: ", strerror(errno));
+		ft_putendl_fd(temp, 2);
+		free(temp);
 		return ;
 	}
 	ft_putendl_fd(str, 1);
