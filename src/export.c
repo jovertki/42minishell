@@ -6,12 +6,12 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 19:54:16 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/20 18:06:41 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/20 18:12:08 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+//mode = 0 -> ONLY VALUE; mode = 1 -> FULL
 char *find_env(char **envp, char *str, int mode)
 {	
 	int i;
