@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 19:54:16 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/20 17:49:29 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/20 18:06:41 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char *find_env(char **envp, char *str, int mode)
 	int i;
 
 	i = 0;
-	while (ft_strncmp(envp[i], str, ft_strlen(str)) && envp[i])
+	while (envp[i] && ft_strncmp(envp[i], str, ft_strlen(str)))
 		i++;
 	if (envp[i] == NULL)
 		return (NULL);
