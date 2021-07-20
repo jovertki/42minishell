@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 19:54:16 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/19 19:49:03 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/20 17:49:29 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,29 @@ char *find_var_name(char *str)
 	return (out);
 }
 
+char	**ft_add_new(char **envp, char **argv, int envplen)
+{
+	char **new_envp;
+	new_envp = ft_calloc(sizeof(char *), (envplen + 10));
+	int i;
+	i = 0;
+	while (envp[i])
+	{
+		new_envp[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	new_envp[i] = ft_strdup(argv[1]);
+	new_envp[i + 1] = NULL;
+	i = 0;
+	while (envp[i])
+	{
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
+	return(new_envp);
+}
+
 void	ft_export(int argc, char **argv, char ***envp)
 {
 	int envplen;
@@ -155,9 +178,7 @@ void	ft_export(int argc, char **argv, char ***envp)
 		} else
 		{
 			//add new
-			ft_crealloc(*(void**)envp, (envplen * sizeof(char *)), ((envplen + 10)* sizeof(char *)));
-			(*envp)[i] = ft_strdup(argv[1]);
-			(*envp)[i + 1] = NULL;
+			*envp = ft_add_new(*envp, argv, envplen);
 		}
 		free(name);
 	}

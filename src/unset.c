@@ -6,41 +6,40 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 20:19:24 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/19 20:55:04 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/19 22:02:42 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **create_new_envp(char **envp, char *temp)
+char **create_new_envp(char ***envp, char *temp)
 {
 	int i;
 	int j;
 	char **new_envp;
 	
 	i = 0;
-	while ((envp)[i])
+	while ((*envp)[i])
 		i++;
-	new_envp = ft_calloc(sizeof(char *), i + 1);
+	new_envp = ft_calloc(sizeof(char *), i + 2);
 	i = 0;
 	j = 0;
-	while (envp[i])
+	while ((*envp)[i])
 	{
-		if (envp[i] != temp)
+		if (ft_strncmp((*envp)[i], temp, ft_strlen(temp)))
 		{
-			new_envp[j] = ft_strdup(envp[i]);
+			new_envp[j] = ft_strdup((*envp)[i]);
 			j++;
 		}
 		i++;
 	}
 	i = 0;
-	while (envp[i])
+	while ((*envp)[i])
 	{
-		free(envp[i]);
+		free((*envp)[i]);
 		i++;
 	}
-	free(envp);
-	new_envp[j] = NULL;
+	free((*envp));
 	return(new_envp);
 }
 
@@ -57,8 +56,8 @@ void	ft_unset(int argc, char **argv, char ***envp)
 		if (temp == NULL)
 			return ;
 		else
-			*envp = create_new_envp(*envp, temp);
+			*envp = create_new_envp(envp, temp);
 	}
 	else
-		*envp = create_new_envp(*envp, temp);
+		*envp = create_new_envp(envp, temp);
 }

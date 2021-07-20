@@ -21,22 +21,22 @@ void	get_ct(t_commandtable *ct)
 
 	//test input 4
 
-	ct->num_of_commands = 2;
+	ct->num_of_commands = 3;
 	ct->commands = ft_calloc(sizeof(t_command), 5);
 
 	ct->commands[0].argv = ft_calloc(sizeof(char*), 4);
-	ct->commands[0].argv[0] = ft_strdup("unset\0");
-	ct->commands[0].argv[1] = ft_strdup("HOME\0");
+	ct->commands[0].argv[0] = ft_strdup("export\0");
+	ct->commands[0].argv[1] = ft_strdup("VAR\0");
 	ct->commands[0].argc = 2;
 
 	ct->commands[1].argv = ft_calloc(sizeof(char*), 4);
-	ct->commands[1].argv[0] = ft_strdup("export\0");
-	// ct->commands[1].argv[1] = ft_strdup("HOME");
-	ct->commands[1].argc = 1;
+	ct->commands[1].argv[0] = ft_strdup("unset\0");
+	ct->commands[1].argv[1] = ft_strdup("VAR");
+	ct->commands[1].argc = 2;
 
-	// ct->commands[2].argv = ft_calloc(sizeof(char*), 4);
-	// ct->commands[2].argv[0] = ft_strdup("export\0");
-	// ct->commands[2].argc = 1;
+	ct->commands[2].argv = ft_calloc(sizeof(char*), 4);
+	ct->commands[2].argv[0] = ft_strdup("export\0");
+	ct->commands[2].argc = 1;
 
 
 
@@ -110,7 +110,7 @@ char	**prune_env(char **envp)
 	i = 0;
 	while ((envp)[i])
 		i++;
-	new_envp = ft_calloc(sizeof(char *), i + 1);
+	new_envp = ft_calloc(sizeof(char *), i + 2);
 	i = 0;
 	j = 0;
 	while (envp[i])
@@ -172,7 +172,7 @@ int	main(int argc, char **argv, const char **envp)
 	t_all	all;
 	ft_bzero(&all, sizeof(t_all));
 	all.env = get_env(envp);
-//	all.env = prune_env(all.env);
+	// all.env = prune_env(all.env);
 
 
 //parser with commandtable on out
