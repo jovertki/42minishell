@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 20:55:32 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/09 22:57:52 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/20 20:11:26 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ void				ft_putnbru_fd(unsigned long long n, int fd);
 long long			power_i(long long num, int power);
 double				power_d(double num, int power);
 void				ft_putfnbr_fd(double n, int prec, int fd);
+char				*ft_strjoin_ff(char *s1, char const *s2);
+char				*ft_strjoin_fs(char const *s1, char *s2);
+char				*ft_strjoin_fb(char *s1, char *s2);
 typedef struct s_list
 {
 	void			*content;
