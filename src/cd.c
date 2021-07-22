@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 20:30:52 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/19 20:26:38 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/22 15:52:53 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ void	cd(char **argv, int argc, char ***envp)
 	}
 	else if (argv[1] != NULL && argv[1][0] == '~')
 	{
-		str = getenv("HOME");
+		str = find_env(*envp, "HOME=", 0);
+		if (str == NULL)
+			str = getenv("HOME");
 	}
 	else
 	{
