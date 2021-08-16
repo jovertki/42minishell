@@ -4,7 +4,7 @@ HDR		= $(wildcard src/*.h)
 OBJ		= $(patsubst src/%.c, obj/%.o,$(SRC))
 LIB		= libft/libft.a
 LIBHDR	= libft/libft.h
-CFLAGS	= -g
+CFLAGS	= -Wall -Werror -Wextra
 CC		= gcc
 RDLN	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
 

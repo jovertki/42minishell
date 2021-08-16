@@ -6,7 +6,7 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 17:56:32 by jovertki          #+#    #+#             */
-/*   Updated: 2021/04/09 20:26:43 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/30 22:25:34 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ static int	stuff(char **out, int *size, int *counter, long int *nbr)
 	return (0);
 }
 
+static void	while_body(char *out, long int *nbr, int *size)
+{
+	out[*size - 1] = *nbr % 10 + '0';
+	*nbr = *nbr / 10;
+	*size = *size - 1;
+}
+
 char	*ft_itoa(int n)
 {
 	char		*out;
@@ -39,6 +46,8 @@ char	*ft_itoa(int n)
 	size = 1;
 	counter = n;
 	nbr = n;
+	if (n == 0)
+		return (ft_strdup("0"));
 	if (n < 0)
 		size++;
 	while (counter)
@@ -50,10 +59,6 @@ char	*ft_itoa(int n)
 	if (stuff(&out, &size, &counter, &nbr) == -1)
 		return (NULL);
 	while (counter < size)
-	{
-		out[size - 1] = nbr % 10 + '0';
-		nbr = nbr / 10;
-		size--;
-	}
+		while_body(out, &nbr, &size);
 	return (out);
 }

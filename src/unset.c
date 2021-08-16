@@ -6,58 +6,63 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 20:19:24 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/19 22:02:42 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/30 22:19:34 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **create_new_envp(char ***envp, char *temp)
+static char	**create_new_envp(char ***envp, char *temp)
 {
-	int i;
-	int j;
-	char **new_envp;
-	
+	int		i;
+	int		j;
+	char	**new_envp;
+
 	i = 0;
 	while ((*envp)[i])
 		i++;
 	new_envp = ft_calloc(sizeof(char *), i + 2);
+	if (new_envp == NULL)
+		malloc_err_exit();
 	i = 0;
 	j = 0;
 	while ((*envp)[i])
 	{
 		if (ft_strncmp((*envp)[i], temp, ft_strlen(temp)))
-		{
-			new_envp[j] = ft_strdup((*envp)[i]);
-			j++;
-		}
+			new_envp[j++] = ft_strdup((*envp)[i]);
 		i++;
 	}
 	i = 0;
 	while ((*envp)[i])
-	{
-		free((*envp)[i]);
-		i++;
-	}
+		free((*envp)[i++]);
 	free((*envp));
-	return(new_envp);
+	return (new_envp);
 }
 
-void	ft_unset(int argc, char **argv, char ***envp)
+int	ft_unset(int argc, char **argv, char ***envp)
 {
-	char *temp = NULL;
-	char *temp_name;
-	temp = find_env(*envp, argv[1], 1);
-	if (temp == NULL)
+	char	*temp;
+	char	*temp_name;
+	int		i;
+
+	i = 1;
+	temp = NULL;
+	while (i < argc)
 	{
-		temp_name = ft_strjoin(argv[1], "=");
-		temp = find_env(*envp, argv[1], 1);
-		free(temp_name);
+		temp = find_env(*envp, argv[i], 1);
 		if (temp == NULL)
-			return ;
+		{
+			temp_name = ft_strjoin(argv[i], "=");
+			temp = find_env(*envp, argv[i], 1);
+			free(temp_name);
+			if (temp == NULL)
+				return (0);
+			else
+				*envp = create_new_envp(envp, temp);
+		}
 		else
 			*envp = create_new_envp(envp, temp);
+		i++;
 	}
-	else
-		*envp = create_new_envp(envp, temp);
+	return (0);
 }

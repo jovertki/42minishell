@@ -6,18 +6,21 @@
 /*   By: jovertki <jovertki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:02:53 by jovertki          #+#    #+#             */
-/*   Updated: 2021/07/20 21:19:46 by jovertki         ###   ########.fr       */
+/*   Updated: 2021/07/30 19:04:43 by jovertki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env(char **envp)
+int	env(char **envp)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (envp[i])
 	{
 		printf("%s\n", envp[i]);
 		i++;
 	}
+	return (0);
 }
